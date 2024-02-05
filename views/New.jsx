@@ -46,7 +46,14 @@ class New extends React.Component {
             Flight Number: <input type="number" name="flightNo" />
           </label><br />
 
-          {/* Add more input fields as needed */}
+          <select name="airport"  defaultValue={this.props.departAirport} style={{ width: '100%', padding: '5px', marginBottom: '10px' }} >
+          <option value="AUS">AUS</option>
+          <option value="DAL">DAL</option>
+          <option value="LAX">LAX</option>
+          <option value="SAN">SAN</option>
+          <option value="SEA">SEA</option>
+
+          {this.props.departAirport}</select><br/><br/>
           <input type="submit" value="Create Flight" />
         </form>
       </div>

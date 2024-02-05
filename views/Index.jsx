@@ -29,6 +29,7 @@ class Index extends React.Component {
                 Flight Number: {flight.flightNo}<br />
                 Departs Date: {flight.departs.toDateString()}<br/>
                 Depart Time:{formattedDate} <br/>
+                <a href={`/flights/${flight._id}`}>Detail</a>{''}<br/>
               </li>
             );
           })}

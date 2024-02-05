@@ -53,10 +53,46 @@ app.get('/flights/new', (req, res) => {
   const dt = newFlight.departs;
   // Format the date for the value attribute of the input
   const departsDate = dt.toISOString().slice(0, 16);
-  // const departAirport= newFlight.airport
+  const departAirport= newFlight.airport
   
-res.render('New', {departsDate});
+res.render('New', {departsDate, departAirport});
 });
+
+// Show
+app.get('/flights/:id', (req, res) =>  {
+  //findOne returns the first object that matches _id: req.params.id  
+  Flight.findOne({ _id: req.params.id}).then((foundFlight)=>{
+      res.render('Show', {
+          flight: foundFlight
+  });
+  })
+  .catch(err => console.error(err))
+});
+
+ //Edit
+ app.get('/flights/:id/edit', (req, res) => {
+  Flight.findOne({ _id: req.params.id })
+    .then(foundFlight => res.render('Edit',
+      {
+        flight: foundFlight
+      }))
+    .catch(err => console.error(err));
+})
+
+
+
+//Update
+
+app.put('/flights/:id', (req, res) => {
+  
+  Flight.updateOne({ _id: req.params.id }, 
+    { $push: { destinations: req.body } })
+    .then(updateInfo => {
+      res.redirect(`/flights/${req.params.id}`)
+    })
+    .catch(err => console.error(err));
+})
+
 
 // POST route for handling form submission
 app.post('/flights', (req, res) => {
